@@ -37,11 +37,14 @@
                 <TextBox Text="{Binding NewUserRole, Mode=TwoWay}"
                      Style="{StaticResource InputsDefault}"/>
             </StackPanel>
-            
 
+            <TextBlock Text="{Binding AlertMessage}"
+                       Visibility="{Binding VisibilityAlert, Mode=TwoWay}"
+                       Style="{StaticResource AlertDefault}"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                         Style="{StaticResource ButtonsGroup}">
                 <Button Command="{Binding AddNewUserCommand}"
+                        Visibility="{Binding AddButtonVisible, Mode=TwoWay}"
                         Style="{StaticResource AddDefault}"
                         Content="Add"/>
                 <Button Command="{Binding DeleteUserComand}"
@@ -50,6 +53,10 @@
                 <Button Command="{Binding EditUserComand}"
                         Style="{StaticResource EditDefault}"
                         Content="Edit"/>
+                <Button Command="{Binding AcceptPendingEditions}"
+                        Style="{StaticResource AddDefault}"
+                        Visibility="{Binding AcceptButtonVisible, Mode=TwoWay}"
+                        Content="Accept"/>
             </StackPanel>
             
         </StackPanel>

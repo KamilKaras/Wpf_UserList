@@ -15,6 +15,11 @@ namespace WpfList.Core
         public ICommand AddNewUserCommand { get; set; }
         public ICommand DeleteUserComand { get; set; }
         public ICommand EditUserComand { get; set; }
+        public ICommand AcceptPendingEditions { get; set; }
+        public string AddButtonVisible { get; set; }
+        public string AcceptButtonVisible { get; set; }
+        public string VisibilityState { get; set; }
+        public string AlertMessage { get; set; }
         private  WpfListController DbControler { get; set; }
 
         public ListPageViewModel()
@@ -22,53 +27,83 @@ namespace WpfList.Core
             AddNewUserCommand = new ComandHelper(AddNewUsesr);
             DeleteUserComand = new ComandHelper(DeleteUser);
             EditUserComand = new ComandHelper(EditUser);
+            AcceptPendingEditions = new ComandHelper(AcceptEdits);
             DbControler = new WpfListController(new WpfListDbContext());
+            NewUserName = "";
+            NewUserSurname = "";
+            NewUserRole = "";
+            VisibilityState = "Hidden";
+            AddButtonVisible = "Visible";
+            AcceptButtonVisible = "Hidden";
             GetAllUser();
         }
 
         public async void AddNewUsesr()
         {
             var inputCorrect = CheckInputsCorrect(NewUserName, NewUserSurname, NewUserRole);
-            if(inputCorrect)
+            if (inputCorrect)
             {
-              
                 var newDbUser = new AplicationUserModel {
 
                     IsSelected = false,
                     Name = NewUserName,
-                    Role = NewUserSurname,
-                    Surname = NewUserRole
+                    Role = NewUserRole,
+                    Surname = NewUserSurname
                 };
                 var addedUser = await DbControler.AddUser(newDbUser);
                 UserList.Add(AplicationUserMapper.MappUser(addedUser));
                 CleanInputs();
-            }
-            
+            } 
         }
 
         public void DeleteUser()
         {
             var userToDelete = SelectedUsers();
-            foreach (var user in userToDelete)
+            if(userToDelete.Count>=1)
             {
-                 DbControler.DeleteUsers(user.Id);
-                UserList.Remove(user);
+                foreach (var user in userToDelete)
+                {
+                    DbControler.DeleteUsers(user.Id);
+                    UserList.Remove(user);
+                }
+                DbControler.SaveChanges();
+                InputAlert("", "Hidden");
+                ButtonsVisible("Visible", "Hidden");
+                CleanInputs();
             }
-            DbControler.SaveChanges();
+            else
+            {
+                InputAlert("Please select users to delete", "Visible");
+            }
         }
 
         public void EditUser()
         {
+            {
+                var userToEditList = SelectedUsers();
+                var userToEdit = userToEditList.Find(user => user.IsSelected == true);
+                if (userToEditList.Count > 0 && userToEditList.Count < 2)
+                {
+                    ButtonsVisible("Hidden", "Visible");
+                    InputAlert("", "Hidden");
+                    FillToEdit(userToEdit);
+                }
+                else
+                {
+                    InputAlert("You should edit one user", "Visible");
+                }
+            }
+        }
+        public void AcceptEdits()
+        {
             var inputCorrect = CheckInputsCorrect(NewUserName, NewUserSurname, NewUserRole);
             if (inputCorrect)
             {
-                var userToEdit = SelectedUsers();
-                if (userToEdit.Count > 0 && userToEdit.Count < 2)
-                {
-                    DeleteUser();
-                    AddNewUsesr();
-                    CleanInputs();
-                }
+                ButtonsVisible("Visible", "Hidden");
+                AddNewUsesr();
+                DeleteUser();
+                InputAlert("", "Hidden");
+                CleanInputs();
             }
         }
         public async void GetAllUser()
@@ -89,12 +124,38 @@ namespace WpfList.Core
         public bool CheckInputsCorrect(string name, string surname, string role)
         {
             if (name == string.Empty || surname == string.Empty || role == string.Empty)
+            {
+                InputAlert("Please fill all input fields", "Visible");
                 return false;
-            if (name == null || surname == null || role == null)
-                return false;
+            }
+            InputAlert("", "Hidden");
             return true;
         }
 
+        public void InputAlert(string message, string state)
+        {
+            AlertMessage = message;
+            VisibilityState = state;
+            OnPermit(nameof(VisibilityState));
+            OnPermit(nameof(AlertMessage));
+        }
+
+        public void FillToEdit(AplicationUser user)
+        {
+            NewUserName = user.Name;
+            NewUserSurname = user.Surname;
+            NewUserRole = user.Role;
+            OnPermit(nameof(NewUserName));
+            OnPermit(nameof(NewUserSurname));
+            OnPermit(nameof(NewUserRole));
+        }
+        public void ButtonsVisible(string addState, string acceptState)
+        {
+            AddButtonVisible = addState;
+            AcceptButtonVisible = acceptState;
+            OnPermit(nameof(AddButtonVisible));
+            OnPermit(nameof(AcceptButtonVisible));
+        }
         public void CleanInputs()
         {
             NewUserName = string.Empty;
