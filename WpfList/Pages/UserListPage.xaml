@@ -1,0 +1,57 @@
+﻿<Page x:Class="WpfList.UserListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfList"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UserListPage">
+
+    <Grid Style="{StaticResource MainPage}">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Aplication User List"
+                       Style="{StaticResource HeaderDefault}"/>
+
+            <ScrollViewer Height="300" Style="{StaticResource ScrolDefault}">
+                <ItemsControl ItemsSource="{Binding UserList}" Margin="20">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:AolicationUser/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            
+            <StackPanel>
+                <TextBlock Text="User name"
+                           Style="{StaticResource TittleDefault}"/>
+                <TextBox Text="{Binding NewUserName, Mode=TwoWay}"
+                     Style="{StaticResource InputsDefault}"/>
+                <TextBlock Text="User surname"
+                           Style="{StaticResource TittleDefault}"/>
+                <TextBox Text="{Binding NewUserSurname, Mode=TwoWay}"
+                     Style="{StaticResource InputsDefault}"/>
+                <TextBlock Text="User role"
+                           Style="{StaticResource TittleDefault}"/>
+                <TextBox Text="{Binding NewUserRole, Mode=TwoWay}"
+                     Style="{StaticResource InputsDefault}"/>
+            </StackPanel>
+            
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                        Style="{StaticResource ButtonsGroup}">
+                <Button Command="{Binding AddNewUserCommand}"
+                        Style="{StaticResource AddDefault}"
+                        Content="Add"/>
+                <Button Command="{Binding DeleteUserComand}"
+                        Style="{StaticResource DeleteDefault}"
+                        Content="Delete"/>
+                <Button Command="{Binding EditUserComand}"
+                        Style="{StaticResource EditDefault}"
+                        Content="Edit"/>
+            </StackPanel>
+            
+        </StackPanel>
+    </Grid>
+</Page>

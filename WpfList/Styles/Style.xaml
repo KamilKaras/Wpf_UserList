@@ -1,0 +1,70 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WpfList">
+
+
+    <Style TargetType="{x:Type Grid}" x:Key="MainPage">
+        <Setter Property="Background" Value="Gainsboro"/>
+    </Style>
+    <Style TargetType="{x:Type ScrollViewer}" x:Key="ScrolDefault">
+        <Setter Property="Background" Value="GhostWhite"/>
+        <Setter Property="MinWidth" Value="300"/>
+    </Style>
+    <Style TargetType="{x:Type StackPanel}" x:Key="ButtonsGroup">
+        <Setter Property="Margin" Value="0,10,0,0"/>
+    </Style>
+    <Style TargetType="{x:Type Button}" x:Key="AddDefault">
+        <Setter Property="Background" Value="Green"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="MinWidth" Value="70"/>
+    </Style>
+    <Style TargetType="{x:Type Button}" x:Key="DeleteDefault">
+        <Setter Property="Background" Value="Red"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="MinWidth" Value="70"/>
+    </Style>
+    <Style TargetType="{x:Type Button}" x:Key="EditDefault">
+        <Setter Property="Background" Value="Orange"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="MinWidth" Value="70"/>
+    </Style>
+    <Style TargetType="{x:Type TextBox}" x:Key="InputsDefault">
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+    <Style TargetType="{x:Type TextBlock}" x:Key="HeaderDefault">
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+        <Setter Property="FontFamily" Value="Corbel"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+    <Style TargetType="{x:Type TextBlock}" x:Key="TittleDefault">
+        <Setter Property="FontFamily" Value="Corbel"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Margin" Value="0,10,0,0"/>
+    </Style>
+    <Style TargetType="{x:Type TextBlock}" x:Key="UserDefault">
+        <Setter Property="FontFamily" Value="Corbel"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Margin" Value="5,5,0,0"/>
+        <Setter Property="MinWidth" Value="100"/>
+    </Style>
+    <Style TargetType="{x:Type TextBlock}" x:Key="UserDefaulttitle">
+        <Setter Property="FontFamily" Value="Corbel"/>
+        <Setter Property="FontSize" Value="8"/>
+        <Setter Property="Margin" Value="5,5,0,0"/>
+    </Style>
+</ResourceDictionary>
