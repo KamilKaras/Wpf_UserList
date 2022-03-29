@@ -14,6 +14,7 @@ namespace WpfList.Core
         public ICommand DeleteUserComand { get; set; }
         public ICommand EditUserComand { get; set; }
         public ICommand AcceptPendingEditions { get; set; }
+
         public ListPageViewModel() : base()
         {
             AddNewUserCommand = new ComandHelper(AddNewUsesr);
@@ -44,7 +45,7 @@ namespace WpfList.Core
 
         public void DeleteUser()
         {
-            var userToDelete = SelectedUsers();
+            var userToDelete = SelectedUsers(UserList);
             if(userToDelete.Count>=1)
             {
                 foreach (var user in userToDelete)
@@ -66,7 +67,7 @@ namespace WpfList.Core
         public void EditUser()
         {
             {
-                var userToEditList = SelectedUsers();
+                var userToEditList = SelectedUsers(UserList);
                 var userToEdit = userToEditList.Find(user => user.IsSelected == true);
                 if (userToEditList.Count > 0 && userToEditList.Count < 2)
                 {
@@ -99,12 +100,6 @@ namespace WpfList.Core
             {
                 UserList.Add(AplicationUserMapper.MappUser(user));
             }
-        }
-
-        public List<AplicationUser> SelectedUsers()
-        {
-            var selectedUsers = UserList.Where(user => user.IsSelected).ToList();
-            return selectedUsers;
         }
     }
 }

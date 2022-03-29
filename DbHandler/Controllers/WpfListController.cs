@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace DbHandler
 {
-    public class WpfListController 
+    public class WpfListController
     {
         private readonly WpfListDbContext _wpfListDbContext;
 
@@ -13,7 +13,7 @@ namespace DbHandler
             _wpfListDbContext = dbContext;
         }
 
-        public async Task <List <AplicationUserModel>> GetAllUser()
+        public async Task<List<AplicationUserModel>> GetAllUser()
         {
             var allUsers = await _wpfListDbContext.AplicationUser.ToListAsync();
             return allUsers;
@@ -34,7 +34,7 @@ namespace DbHandler
                 _wpfListDbContext.AplicationUser.Remove(userToRemofeFromDb);
             }
         }
-       
+
         public async void SaveChanges()
         {
             await _wpfListDbContext.SaveChangesAsync();

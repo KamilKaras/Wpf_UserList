@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using DbHandler;
+using System.Windows.Controls;
 using WpfList.Core;
 
 namespace WpfList
@@ -8,11 +9,10 @@ namespace WpfList
     /// </summary>
     public partial class UserListPage : Page
     {
-
+      
         public UserListPage()
         {
             InitializeComponent();
-
             DataContext = new ListPageViewModel();
         }
     }

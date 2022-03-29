@@ -1,9 +1,12 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using WpfList.Core;
 
 namespace WpfList
 {
-    public abstract class UserActionHandling : INotifyPropertyChanged, IUserActionHandling
+    public abstract class UserActionHandling : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = (sender, eventArgs) => { };
         public string AddButtonVisible { get; set; }
@@ -13,7 +16,7 @@ namespace WpfList
         public string NewUserName { get; set; }
         public string NewUserSurname { get; set; }
         public string NewUserRole { get; set; }
-
+     
         public UserActionHandling()
         {
             NewUserName = "";
@@ -24,12 +27,12 @@ namespace WpfList
             AcceptButtonVisible = "Hidden";
         }
 
-        protected void OnPermit(string name)
+        public void OnPermit(string name)
         {
             PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
 
-        protected void InputAlert(string message, string state)
+        public void InputAlert(string message, string state)
         {
             AlertMessage = message;
             VisibilityState = state;
@@ -37,7 +40,7 @@ namespace WpfList
             OnPermit(nameof(AlertMessage));
         }
 
-        protected void FillToEdit(AplicationUser user)
+        public void FillToEdit(AplicationUser user)
         {
             NewUserName = user.Name;
             NewUserSurname = user.Surname;
@@ -47,7 +50,7 @@ namespace WpfList
             OnPermit(nameof(NewUserRole));
         }
 
-        protected void ButtonsVisible(string addState, string acceptState)
+        public void ButtonsVisible(string addState, string acceptState)
         {
             AddButtonVisible = addState;
             AcceptButtonVisible = acceptState;
@@ -55,7 +58,7 @@ namespace WpfList
             OnPermit(nameof(AcceptButtonVisible));
         }
 
-        protected void CleanInputs()
+        public void CleanInputs()
         {
             NewUserName = string.Empty;
             NewUserSurname = string.Empty;
@@ -65,7 +68,7 @@ namespace WpfList
             OnPermit(nameof(NewUserRole));
         }
 
-        protected bool CheckInputsCorrect(string name, string surname, string role)
+        public bool CheckInputsCorrect(string name, string surname, string role)
         {
             if (name == string.Empty || surname == string.Empty || role == string.Empty)
             {
@@ -75,6 +78,10 @@ namespace WpfList
             InputAlert("", "Hidden");
             return true;
         }
-
+        public List<AplicationUser> SelectedUsers(ObservableCollection<AplicationUser> userList)
+        {
+            var selectedUsers = userList.Where(user => user.IsSelected == true).ToList();
+            return selectedUsers;
+        }
     }
 }
