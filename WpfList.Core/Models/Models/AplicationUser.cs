@@ -1,6 +1,6 @@
 ﻿namespace WpfList.Core
 {
-    public class AplicationUser : BaseModel
+    public class AplicationUser
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -6,12 +6,18 @@
     <Style TargetType="{x:Type Grid}" x:Key="MainPage">
         <Setter Property="Background" Value="Gainsboro"/>
     </Style>
+    <Style TargetType="{x:Type StackPanel}" x:Key="MainStack">
+        <Setter Property="MaxHeight" Value="600"/>
+    </Style>
     <Style TargetType="{x:Type ScrollViewer}" x:Key="ScrolDefault">
         <Setter Property="Background" Value="GhostWhite"/>
         <Setter Property="MinWidth" Value="300"/>
     </Style>
     <Style TargetType="{x:Type StackPanel}" x:Key="ButtonsGroup">
         <Setter Property="Margin" Value="0,10,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Orientation" Value="Vertical"/>
+        <Setter Property="Margin" Value="30,80,0,0"/>
     </Style>
     <Style TargetType="{x:Type Button}" x:Key="AddDefault">
         <Setter Property="Background" Value="Green"/>

@@ -16,7 +16,6 @@ namespace WpfList
 
             dataBase.Database.EnsureCreated();
 
-            DbHelper.DataBase = dataBase;
         }
     }
 }

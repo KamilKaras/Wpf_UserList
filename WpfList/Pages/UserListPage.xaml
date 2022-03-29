@@ -9,40 +9,40 @@
       Title="UserListPage">
 
     <Grid Style="{StaticResource MainPage}">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Aplication User List"
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                    Style="{StaticResource MainStack}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Aplication User List"
                        Style="{StaticResource HeaderDefault}"/>
+                <ScrollViewer Height="300" Style="{StaticResource ScrolDefault}">
+                    <ItemsControl ItemsSource="{Binding UserList}" Margin="20">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:AolicationUser/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
 
-            <ScrollViewer Height="300" Style="{StaticResource ScrolDefault}">
-                <ItemsControl ItemsSource="{Binding UserList}" Margin="20">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <local:AolicationUser/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-            
-            <StackPanel>
-                <TextBlock Text="User name"
+                <StackPanel>
+                    <TextBlock Text="User name"
                            Style="{StaticResource TittleDefault}"/>
-                <TextBox Text="{Binding NewUserName, Mode=TwoWay}"
+                    <TextBox Text="{Binding NewUserName, Mode=TwoWay}"
                      Style="{StaticResource InputsDefault}"/>
-                <TextBlock Text="User surname"
+                    <TextBlock Text="User surname"
                            Style="{StaticResource TittleDefault}"/>
-                <TextBox Text="{Binding NewUserSurname, Mode=TwoWay}"
+                    <TextBox Text="{Binding NewUserSurname, Mode=TwoWay}"
                      Style="{StaticResource InputsDefault}"/>
-                <TextBlock Text="User role"
+                    <TextBlock Text="User role"
                            Style="{StaticResource TittleDefault}"/>
-                <TextBox Text="{Binding NewUserRole, Mode=TwoWay}"
+                    <TextBox Text="{Binding NewUserRole, Mode=TwoWay}"
                      Style="{StaticResource InputsDefault}"/>
-            </StackPanel>
-
-            <TextBlock Text="{Binding AlertMessage}"
+                    <TextBlock Text="{Binding AlertMessage}"
                        Visibility="{Binding VisibilityAlert, Mode=TwoWay}"
                        Style="{StaticResource AlertDefault}"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
-                        Style="{StaticResource ButtonsGroup}">
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Style="{StaticResource ButtonsGroup}">
                 <Button Command="{Binding AddNewUserCommand}"
                         Visibility="{Binding AddButtonVisible, Mode=TwoWay}"
                         Style="{StaticResource AddDefault}"
@@ -58,7 +58,6 @@
                         Visibility="{Binding AcceptButtonVisible, Mode=TwoWay}"
                         Content="Accept"/>
             </StackPanel>
-            
         </StackPanel>
     </Grid>
 </Page>

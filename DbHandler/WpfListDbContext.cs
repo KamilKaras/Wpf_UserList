@@ -7,11 +7,11 @@ namespace DbHandler
     {
         public DbSet<AplicationUserModel> AplicationUser {get; set;}
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            base.OnConfiguring(optionsBuilder);
+            base.OnConfiguring(builder);
 
-            optionsBuilder.UseSqlite($"Filename={Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "WpfList.sqlite")}");
+            builder.UseSqlite($"Filename={Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "WpfList.sqlite")}");
         }
     }
 }

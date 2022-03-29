@@ -6,35 +6,21 @@ using System.Windows.Input;
 
 namespace WpfList.Core
 {
-    public class ListPageViewModel : BaseModel
+    public class ListPageViewModel : UserActionHandling
     {
-        public ObservableCollection<AplicationUser> UserList { get; set; } = new ObservableCollection<AplicationUser>();  
-        public string NewUserName { get; set; }
-        public string NewUserSurname { get; set; }
-        public string NewUserRole { get; set; }
+        private WpfListController DbControler { get; set; }
+        public ObservableCollection<AplicationUser> UserList { get; set; } = new ObservableCollection<AplicationUser>();
         public ICommand AddNewUserCommand { get; set; }
         public ICommand DeleteUserComand { get; set; }
         public ICommand EditUserComand { get; set; }
         public ICommand AcceptPendingEditions { get; set; }
-        public string AddButtonVisible { get; set; }
-        public string AcceptButtonVisible { get; set; }
-        public string VisibilityState { get; set; }
-        public string AlertMessage { get; set; }
-        private  WpfListController DbControler { get; set; }
-
-        public ListPageViewModel()
+        public ListPageViewModel() : base()
         {
             AddNewUserCommand = new ComandHelper(AddNewUsesr);
             DeleteUserComand = new ComandHelper(DeleteUser);
             EditUserComand = new ComandHelper(EditUser);
             AcceptPendingEditions = new ComandHelper(AcceptEdits);
             DbControler = new WpfListController(new WpfListDbContext());
-            NewUserName = "";
-            NewUserSurname = "";
-            NewUserRole = "";
-            VisibilityState = "Hidden";
-            AddButtonVisible = "Visible";
-            AcceptButtonVisible = "Hidden";
             GetAllUser();
         }
 
@@ -120,50 +106,5 @@ namespace WpfList.Core
             var selectedUsers = UserList.Where(user => user.IsSelected).ToList();
             return selectedUsers;
         }
-
-        public bool CheckInputsCorrect(string name, string surname, string role)
-        {
-            if (name == string.Empty || surname == string.Empty || role == string.Empty)
-            {
-                InputAlert("Please fill all input fields", "Visible");
-                return false;
-            }
-            InputAlert("", "Hidden");
-            return true;
-        }
-
-        public void InputAlert(string message, string state)
-        {
-            AlertMessage = message;
-            VisibilityState = state;
-            OnPermit(nameof(VisibilityState));
-            OnPermit(nameof(AlertMessage));
-        }
-
-        public void FillToEdit(AplicationUser user)
-        {
-            NewUserName = user.Name;
-            NewUserSurname = user.Surname;
-            NewUserRole = user.Role;
-            OnPermit(nameof(NewUserName));
-            OnPermit(nameof(NewUserSurname));
-            OnPermit(nameof(NewUserRole));
-        }
-        public void ButtonsVisible(string addState, string acceptState)
-        {
-            AddButtonVisible = addState;
-            AcceptButtonVisible = acceptState;
-            OnPermit(nameof(AddButtonVisible));
-            OnPermit(nameof(AcceptButtonVisible));
-        }
-        public void CleanInputs()
-        {
-            NewUserName = string.Empty;
-            NewUserSurname = string.Empty;
-            NewUserRole = string.Empty;
-            OnPermit(nameof(NewUserName));
-            OnPermit(nameof(NewUserSurname));
-            OnPermit(nameof(NewUserRole));
-        } 
     }
 }
